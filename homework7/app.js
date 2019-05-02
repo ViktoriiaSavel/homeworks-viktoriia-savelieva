@@ -102,7 +102,7 @@ let newImageElement = document.createElement('img');
 newImageElement.setAttribute('src', 'https://www.catster.com/wp-content/uploads/2017/08/A-fluffy-cat-looking-funny-surprised-or-concerned.jpg');
 newImageElement.setAttribute('alt', 'some text');
 
-document.body.insertAdjacentHTML('afterbegin', newImageElement);
+document.body.insertAdjacentElement('afterbegin', newImageElement);
 //document.body.appendChild(newImageElement);
 
 //4. Найти на странице элемент mark, добавить в конец содержимого текст “green” и на элемент установить класс green
