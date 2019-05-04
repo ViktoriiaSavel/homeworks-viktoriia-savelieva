@@ -12,8 +12,8 @@ function getNodeInfo(node) {
     let name = node.nodeName;
     let childrenLength = node.children.length;
 
-    return {type, name, childrenLength};
-}
+    return { type, name, childrenLength };
+};
 
 console.log(getNodeInfo(ulElement));
 
@@ -24,9 +24,9 @@ function getTextFromUl(ul) {
     let linksInUl = ul.querySelectorAll('a');
     let arrayOfLinkTexts = [];
 
-    for (element of linksInUl) {
+    for (let element of linksInUl) {
         arrayOfLinkTexts.push(element.textContent);
-    }
+    };
 
     return arrayOfLinkTexts;
 }
@@ -38,9 +38,10 @@ console.log(getTextFromUl(ulElement));
 // -text-<a href="#">reprehendunt</a>-text-<mark>nemore</mark>-text-
 let pElementChildNodes = document.querySelector('p').childNodes;
 
-Array.from(pElementChildNodes).forEach(el => {if (el.nodeType === 3) {
-    el.textContent = '-text-';
-    }
+Array.from(pElementChildNodes).forEach(el => {
+    if (el.nodeType === 3) {
+        el.textContent = '-text-';
+    };
 });
 
 // 1. Найти в коде список ul и добавить класс “list”
@@ -49,17 +50,25 @@ Array.from(pElementChildNodes).forEach(el => {if (el.nodeType === 3) {
 ulElement.classList.add('list');
 
 // 2. Найти в коде ссылку, находящуюся после списка ul, и добавить id=link 
-let aElementAfterUl = document.querySelector('ul ~ a');
+//---- Option 1 ----
+// let aElementAfterUl = document.querySelector('ul ~ a');
 
-aElementAfterUl.setAttribute('id', 'link');
+// aElementAfterUl.setAttribute('id', 'link');
+
+//---- Option 2 ----
+let nextSibling = ulElement.nextElementSibling
+
+while (nextSibling.tagName !== 'A') {
+    nextSibling = nextSibling.nextElementSibling;
+}
+
+nextSibling.setAttribute('id', 'link');
 
 // 3. На li через один (начиная с самого первого) установить класс “item”
 let liElement = document.querySelectorAll('li');
 
-for (let i = 0; i < liElement.length; i++) {
-    if(i % 2 === 0) {
-        liElement[i].classList.add('item');
-    }
+for (let i = 0; i < liElement.length; i += 2) {
+    liElement[i].classList.add('item');
 };
 
 // 4. На все ссылки в примере установить класс “custom-link”
@@ -90,7 +99,7 @@ for (let i = liElement.length + 1; i < liElement.length + 4; i++) {
 ulElement.appendChild(fragmentWithLi);
 
 //2. В каждую ссылку, которая находятся внутри списка ul добавить по тегу strong (в каждую ссылку один - strong).
-let linksInUl = document.querySelectorAll('ul a');
+let linksInUl = ulElement.querySelectorAll('a');
 let arrayOfLinksInUl = Array.from(linksInUl);
 
 arrayOfLinksInUl.forEach(el => {el.innerHTML = '<strong>' + el.textContent});
@@ -112,12 +121,12 @@ markElement.textContent += ' green';
 markElement.classList.add('green');
 
 //5. Отсортировать li внутри списка в обратном порядке (по тексту внутри)
+let liInUl = ulElement.querySelectorAll('li');
+let arrayLiInUl = Array.from(liInUl);
 let fragmentSortLi = document.createDocumentFragment();
-let liInUl = document.querySelectorAll('li');
 
-for (let i = liInUl.length; i > 0; i--) {
-    fragmentSortLi.appendChild(liInUl[i - 1]);
-}
+arrayLiInUl.sort((prev, next) => (prev.textContent < next.textContent) ? 1 : -1);
+arrayLiInUl.forEach(el => fragmentSortLi.appendChild(el));
 
 ulElement.appendChild(fragmentSortLi);
 
