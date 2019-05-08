@@ -151,16 +151,15 @@ function editTaskStorage(id, title, text) {
     todo.text = text
 
     // создать отдельную ф-цию
-    function editTodoInView(id);
-    
+    editTodoInView(id);
 }
 
 function editTodoInView(id) {
     const tr = document.querySelector(`[data-id="${id}"]`);
     const [titleEl, textEl] = tr.children;
 
-    titleEl.innerHTML = title;
-    textEl.innerHTML = text;
+    titleEl.innerHTML = title.value;
+    textEl.innerHTML = text.value;
 }
 
 function deleteTodoFromView(id) {
@@ -193,7 +192,7 @@ function todoTemplate({
 
 function alertMessage(message, className = 'info') {
     removeAlert();
-    
+
     const template = alertTemplate(message, className);
 
     formCol.insertAdjacentHTML('afterbegin', template);

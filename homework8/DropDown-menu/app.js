@@ -1,5 +1,5 @@
-let menuItem = document.getElementsByClassName('menu')[0];
-let arrayOfDivInMenu = Array.from(menuItem.querySelectorAll('div'));
+let menuItem = document.querySelector('.menu');
+let arrayOfDivInMenu = Array.from(menuItem.querySelectorAll('.dropdown-menu'));
 
 menuItem.addEventListener('click', function ({target}) {
     //console.log(target.tagName);
