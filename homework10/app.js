@@ -112,7 +112,7 @@ const calculator = (function() {
     };
 
     function divideValue(number) {
-        currentValue %= number;
+        currentValue /= number;
         return this; 
     };
 
@@ -136,7 +136,7 @@ const calculator = (function() {
     };
 }());
 
-console.log(calculator.setValue(10).powerOfValue(2).getValue());
+console.log(calculator.setValue(10).divideValue(2).getValue());
 
 // КОНСТРУКТОРЫ И КЛАССЫ
 
