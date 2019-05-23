@@ -122,7 +122,7 @@ const calculator = (function() {
     };
 
     function getValue() {
-        return currentValue;
+        return currentValue.toFixed(2);
     };
 
     return {
