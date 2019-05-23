@@ -4,10 +4,10 @@
 // first: ‘a’,
 // other: [‘b’, ‘c’, ‘d’] }
 
-function getObject(a, ...rest) {
+function getObject(first, ...other) {
     return {
-        first: a, 
-        other: rest
+        first, 
+        other
     };
 };
 
@@ -39,15 +39,11 @@ console.log(getInfo(organisation));
 // return params.reduce(function (prev, next) { return prev + next; }); }
 // sum(1, 2, 3, 4); // 10 sum(); // 0
 
-const sum = (...arguments) => {
-    const params = Array.prototype.slice.call(arguments);
-
-    if (!params.length) return 0;
-
-    return params.reduce((prev, next) => prev + next);
+const sum = (...params) => {
+    return params.length ? params.reduce((prev, next) => prev + next) : 0;
 };
 
-console.log(sum(1, 2, 3, 4));
+console.log(sum(1, 2, 3, 4, 9));
 
 // 1. Создать объект, который описывает ширину и высоту прямоугольника, а также может посчитать площадь фигуры: 
 
