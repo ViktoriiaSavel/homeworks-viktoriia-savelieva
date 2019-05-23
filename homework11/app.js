@@ -57,34 +57,32 @@ class Calculator {
     }
 
     addNumber(number) {
-        return this.currentValue += number;
+        this.currentValue += number;
+        return this;
     };
 
     multiplyValue(number) {
-        return this.currentValue *= number;
+        this.currentValue *= number;
+        return this;
     };
 
     subtractValue(number) {
-        return this.currentValue -= number;
+        this.currentValue -= number;
+        return this;
     };
 
     divideValue(number) {
-        return this.currentValue /= number;
+        this.currentValue /= number;
+        return this;
     };
 
     get currentVal() {
-        return this.currentValue;
+        return this.currentValue.toFixed(2);
     };
 };
 
 const calc1 = new Calculator(10);
-calc1.multiplyValue(5);
-calc1.addNumber(7);
+// calc1.multiplyValue(5);
+// calc1.addNumber(7);
 
-console.log(calc1.currentVal);
-
-// AJAX
-
-// 1. Получить пользователей (users) от сервера https://jsonplaceholder.typicode.com используя класс созданный на занятии. 
-// Получив ответ от сервера вывести имена пользователей на страницу. При клике на имя пользователя в произвольном 
-// месте должна появиться подробная информация о нем. Для визуальной части можно использовать bootstrap или другие фреймворки.
+console.log(calc1.multiplyValue(5).addNumber(9).divideValue(3).currentVal);
