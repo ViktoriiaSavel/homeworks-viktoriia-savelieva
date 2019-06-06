@@ -18,9 +18,10 @@ function Planet(name) {
 function PlanetWithSatellite (name, satellite) {
     Planet.call(this, name);
     this.satellite = satellite;
+    const parentGetNameResult = this.getName();
+
     this.getName = function () {
-        const original = Planet.getName;
-        return (original + ". The satellite is " + this.satellite);
+        return parentGetNameResult + ". The satellite is " + this.satellite;
     };
 };
 
@@ -43,12 +44,12 @@ class Building {
         this.numberOfFloors = numberOfFloors;
     };
 
-    get numberOfFloors () {
+    getNumberOfFloors () {
         return this.numberOfFloors;
     };
 
-    set numberOfFloors (numberOfFloors) {
-        this.numberOfFloors = numberOfFloors
+    setNumberOfFloors (numberOfFloors) {
+        this.numberOfFloors = numberOfFloors;
     };
 };
 
@@ -58,10 +59,10 @@ class House extends Building {
         this.numberOfAptOnFloor = numberOfAptOnFloor;
     };
 
-    get numberOfFloors() {
+    getNumberOfFloors() {
         return { 
-            floors: super.numberOfFloors(), 
-            totalNumberOfApt: super.numberOfFloors() * this.numberOfAptOnFloor
+            floors: super.getNumberOfFloors(), 
+            totalNumberOfApt: super.getNumberOfFloors() * this.numberOfAptOnFloor
         };
     };
 };
@@ -72,10 +73,10 @@ class Mall extends Building {
         this.numberOfShopsOnFloor = numberOfShopsOnFloor;
     };
 
-    get numberOfFloors() {
+    getNumberOfFloors() {
         return { 
-            floors: super.numberOfFloors(), 
-            totalNumberOfShops: super.numberOfFloors() * this.numberOfShopsOnFloor
+            floors: super.getNumberOfFloors(), 
+            totalNumberOfShops: super.getNumberOfFloors() * this.numberOfShopsOnFloor
         };
     };
 };
@@ -83,8 +84,8 @@ class Mall extends Building {
 let house = new House('House', 9, 4);
 let mall = new Mall('Mall', 3, 21);
 
-console.log(house.numberOfFloors());
-console.log(mall.numberOfFloors());
+console.log(house.getNumberOfFloors());
+console.log(mall.getNumberOfFloors());
 
 // 3. Создать класс “Мебель” с базовыми свойствами “имя”, “цена” и методом “получить информацию” (метод должен вывести имя 
 // и цену). Метод должен быть объявлен с помощью прототипов (Func.prototype...). Создать два экземпляра класса “Мебель”: 
@@ -94,38 +95,38 @@ console.log(mall.numberOfFloors());
 // Задача на переопределение метода у экземпляров класса.
 
 class Furniture {
-    constuctor(name, price) {
+    constructor(name, price) {
         this.name = name; 
         this.price = price;
-    }
-}
+    };
+;}
 
 Furniture.prototype.getInfo = function () {
-    return `Name: ${this.name}. Price: ${this.price}'.`;
+    return `Name: ${this.name}. Price: ${this.price}.`;
 };
 
 class FurnitureForOffice extends Furniture {
-    constuctor(name, price, isShredder) {
+    constructor(name, price, isShredder) {
         super(name, price);
         this.isShredder = isShredder;
     };
 };
 
 FurnitureForOffice.prototype.getInfo = function () {
-    let originResult = Furniture.prototype.getInfo.call(this);
-    return originResult + ` Shredder: ${this.isShredder}`;
+    const parentGetInfoResult = Furniture.prototype.getInfo.call(this);
+    return parentGetInfoResult + ` Shredder: ${this.isShredder}`;
 };
 
 class FurnitureForHome extends Furniture {
-    constuctor(name, price, color) {
+    constructor(name, price, color) {
         super(name, price);
         this.color = color;
     };
 };
 
 FurnitureForHome.prototype.getInfo = function () {
-    let originResult = Furniture.prototype.getInfo.call(this);
-    return originResult + ` Color: ${this.color}`;
+    let parentGetInfoResult = Furniture.prototype.getInfo.call(this);
+    return parentGetInfoResult + ` Color: ${this.color}.`;
 };
 
 let furnitureForOffice = new FurnitureForOffice('Table', 320, true);
@@ -152,18 +153,18 @@ class User {
 };
 
 User.prototype.getInfo = function () {
-    return `Name: ${this.name}. Date of registration: ${this.dateOfRegistration}'.`
+    return `Name: ${this.name}. Date of registration: ${this.dateOfRegistration}.`
 };
 
 class Admin extends User {
     constructor(name, dateOfRegistration, superAdmin) {
         super(name,dateOfRegistration);
-        let superAdmin = superAdmin;
+        this._isSuperAdmin = superAdmin;
     };
 
     getInfo() {
-        let originResult = User.prototype.getInfo.call(this);
-        return originResult + `Valid date: ${validDate}'.`
+        let parentGetInfoResult = User.prototype.getInfo.call(this);
+        return parentGetInfoResult + ` Valid date: ${this._isSuperAdmin}.`
     };
 };
 
@@ -175,8 +176,8 @@ class Guest extends User {
 };
 
 Guest.prototype.getInfo = function () {
-    let originResult = User.prototype.getInfo.call(this);
-    return originResult + `Valid date: ${this.validDate}'.`
+    let parentGetInfoResult = User.prototype.getInfo.call(this);
+    return parentGetInfoResult + ` Valid date: ${this.validDate}.`
 };
 
 let admin = new Admin('Nazar', '21/03/2016', true);
