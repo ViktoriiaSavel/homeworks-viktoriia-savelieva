@@ -6,17 +6,17 @@
 class NewsUI {
     constructor() {
         this.container = document.querySelector('.news-wrap .row');
-    }
+    };
 
     addNewsToView(list) {
-        const template = list.reduce((init, item) => init += NewsUI.getTemplate(item), '')
+        const template = list.reduce((init, item) => init += NewsUI.getTemplate(item), '');
 
-        this.container.insertAdjacentHTML('afterbegin', template)
-    }
+        this.container.insertAdjacentHTML('afterbegin', template);
+    };
 
     removeNewsFromView() {
         this.container.innerHTML = '';
-    }
+    };
 
     static getTemplate(article) {
         return `
@@ -34,5 +34,5 @@ class NewsUI {
         </div>
       </div>
         `
-    }
-}
+    };
+};

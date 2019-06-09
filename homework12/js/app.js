@@ -47,7 +47,7 @@ function onInputChange() {
             articles
         }) => {
             loaderUI.removeLoader();
-            if(articles.length !== 0) {
+            if(articles.length) {
                 newsUI.addNewsToView(articles);
             } else {
                 notificationUI.setNotificationNoSearchResults();

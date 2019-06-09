@@ -15,7 +15,7 @@ class NewsService {
         this.apiKey = '9c27b0f722b84da5a08312d2b125351b';
         this.country = 'ua';
         this.category = 'sport';
-        this.keyWordToSearch = '';
+        this.keyWordToSearch;
     };
 
     // Get all news
