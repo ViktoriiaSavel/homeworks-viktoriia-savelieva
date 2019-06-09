@@ -15,18 +15,19 @@ class UsersModule {
 
     list.forEach(user => {
       const pEl = document.createElement("p");
-      let userInfoPEl = '';
+      let userInfoPEl;
       
       pEl.innerHTML = `<b>Name:</b> ${user.name}`;
 
       pEl.addEventListener('click', () => {
-        if (!userInfoPEl.innerHTML) {
+        if (!userInfoPEl) {
         userInfoPEl = document.createElement("p");
         userInfoPEl.innerHTML = `<small><i>Email:</i> ${user.email}</small>`;
 
-        pEl.insertAdjacentElement('afterend', userInfoPEl);
+        pEl.appendChild(userInfoPEl);
         } else {
-          userInfoPEl.innerHTML = '';
+          userInfoPEl.parentNode.removeChild(userInfoPEl);
+          userInfoPEl = null;
         };
       });
       usersFragment.appendChild(pEl);
