@@ -80,8 +80,7 @@ class VideoPlayerBasic {
     };
 
     changeProgressByDblClick(e) {
-        console.log(e);
-        if (e.offsetX > e.x/2) {
+        if (e.offsetX > this.videoPlayer.offsetWidth/2) {
             this.video.currentTime += this.settings.data_skip;
         } else {
             this.video.currentTime -= this.settings.data_skip;
