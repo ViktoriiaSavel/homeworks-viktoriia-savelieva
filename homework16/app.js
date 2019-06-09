@@ -94,35 +94,35 @@ console.log(mall.getNumberOfFloors());
 // учитывать и добавленное вами новое свойство.
 // Задача на переопределение метода у экземпляров класса.
 
-class Furniture {
-    constructor(name, price) {
-        this.name = name; 
-        this.price = price;
-    };
+function Furniture(name, price) {
+    this.name = name; 
+    this.price = price;
 ;}
 
 Furniture.prototype.getInfo = function () {
     return `Name: ${this.name}. Price: ${this.price}.`;
 };
 
-class FurnitureForOffice extends Furniture {
-    constructor(name, price, isShredder) {
-        super(name, price);
-        this.isShredder = isShredder;
-    };
+function FurnitureForOffice(name, price, isShredder) {
+    Furniture.call(this, name, price);
+    this.isShredder = isShredder;
 };
+
+FurnitureForOffice.prototype = Object.create(Furniture.prototype);
+FurnitureForOffice.prototype.constructor = FurnitureForOffice;
 
 FurnitureForOffice.prototype.getInfo = function () {
     const parentGetInfoResult = Furniture.prototype.getInfo.call(this);
     return parentGetInfoResult + ` Shredder: ${this.isShredder}`;
 };
 
-class FurnitureForHome extends Furniture {
-    constructor(name, price, color) {
-        super(name, price);
-        this.color = color;
-    };
+function FurnitureForHome (name, price, color) {
+    Furniture.call(this, name, price);
+    this.color = color;
 };
+
+FurnitureForHome.prototype = Object.create(Furniture.prototype);
+FurnitureForHome.prototype.constructor = FurnitureForHome;
 
 FurnitureForHome.prototype.getInfo = function () {
     let parentGetInfoResult = Furniture.prototype.getInfo.call(this);
@@ -145,35 +145,35 @@ console.log(furnitureForHome.getInfo());
 // момента регистрации). У классов-наследников метод “получить информацию” должен так же содержать информацию о 
 // дополнительных свойствах (“суперАдмин” и “срокДействия”)
 
-class User {
-    constructor(name, dateOfRegistration) {
-        this.name = name;
-        this.dateOfRegistration = dateOfRegistration;
-    };
+function User(name, dateOfRegistration) {
+    this.name = name;
+    this.dateOfRegistration = dateOfRegistration;
 };
 
 User.prototype.getInfo = function () {
     return `Name: ${this.name}. Date of registration: ${this.dateOfRegistration}.`
 };
 
-class Admin extends User {
-    constructor(name, dateOfRegistration, superAdmin) {
-        super(name,dateOfRegistration);
-        this._isSuperAdmin = superAdmin;
-    };
-
-    getInfo() {
-        let parentGetInfoResult = User.prototype.getInfo.call(this);
-        return parentGetInfoResult + ` Valid date: ${this._isSuperAdmin}.`
-    };
+function Admin(name, dateOfRegistration, superAdmin) {
+    User.call(this, name, dateOfRegistration);
+    this._isSuperAdmin = superAdmin;
 };
 
-class Guest extends User {
-    constructor(name, dateOfRegistration, validDate) {
-        super(name,dateOfRegistration);
-        this.validDate = validDate;
-    };
+Admin.prototype = Object.create(User.prototype);
+Admin.prototype.constructor = Admin;
+
+Admin.prototype.getInfo = function () {
+    let parentGetInfoResult = User.prototype.getInfo.call(this);
+    return parentGetInfoResult + ` Valid date: ${this._isSuperAdmin}.`;
 };
+
+function Guest(name, dateOfRegistration, validDate) {
+    User.call(this, name, dateOfRegistration);
+    this.validDate = validDate;
+};
+
+Guest.prototype = Object.create(User.prototype);
+Guest.prototype.constructor = Guest;
 
 Guest.prototype.getInfo = function () {
     let parentGetInfoResult = User.prototype.getInfo.call(this);
