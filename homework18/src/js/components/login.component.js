@@ -52,6 +52,7 @@ export class LoginComponent {
 
             try {
                 const response = await this._authService.login(email, password);
+                console.log(this._authUserToken);
                 this._routing.navigate('/news');
                 //this._routing.navigate(`/users/${response.id}`)
             } catch (err) {

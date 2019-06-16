@@ -5,19 +5,21 @@ export class NewsService {
     getNews(token) {
         const http = new Http();
 
-        return new Promise((resolve, reject) => {
-            http.get(`${ENV.apiUrl}/public/news`, 
-            {
-                headers: { 'x-access-token': token}
-            })
-            .then((response) => {
-                console.log(response);
-                resolve(response.news);
-            })
-            .catch((err) => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const result = await http.get(`${ENV.apiUrl}/public/news`, 
+                    {
+                        headers: { 
+                            'x-access-token': token
+                        }
+                    });
+                console.log(result)
+                resolve(result);
+            }
+            catch(err) {
                 console.log(err);
                 reject(err);
-            });
+            };
         });
     };
 };
