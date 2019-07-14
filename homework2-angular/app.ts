@@ -6,54 +6,36 @@ interface Converter {
 class ToBinary implements Converter {
     toSystem(num: number): string {
         //dec -> bin
-        let  decCode: number = num;
-
-        let binCode = (+decCode).toString(2);
-        return binCode;
+        return (+num).toString(2);
     }
 
     fromSystem(num: string): number {
         //bin -> dec
-        let binCode: string = num;
-
-        let decCode = parseInt(binCode, 2);
-        return decCode;
+        return parseInt(num, 2);
     }
 }
 
 class ToHex implements Converter {
     toSystem(num: number): string {
         //dec -> hex
-        let decCode: number = num;
-
-        let hexCode = (+decCode).toString(8);
-        return hexCode;
+        return (+num).toString(8);
     }
 
     fromSystem(num: string): number {
         //hex -> dec
-        let hexCode: string = num;
-
-        let decCode = parseInt(hexCode, 8);
-        return decCode;
+        return parseInt(num, 8);
     }
 }
 
 class ToHexDec implements Converter {
     toSystem(num: number): string {
         //dec -> hexdec
-        let decCode: number = num;
-
-        let hexDecCode = (+decCode).toString(16);
-        return hexDecCode;
+        return (+num).toString(16);
     }
 
     fromSystem(num: string): number {
         //hexdec -> dec
-        let hexDecCode: string = num;
-
-        let decCode = parseInt(hexDecCode, 16);
-        return decCode;
+        return parseInt(num, 16);
     }
 }
 
